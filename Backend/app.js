@@ -23,9 +23,9 @@ app.get('/', (req, res)=>{
     res.send('Get Request on HOME PAGE of Backend!');
 })
 
-app.use('/students', studentRoute);
-app.use('/admin', adminRoute);
-app.use('/user', userRoute);
+app.use('/api/student', studentRoute);
+app.use('/api/admin', adminRoute);
+app.use('/api/user', userRoute);
 
 
 //Listen the connections

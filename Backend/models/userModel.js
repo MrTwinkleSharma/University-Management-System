@@ -19,25 +19,6 @@ User.create = (newUser, result) => {
       console.log("created user: ", { id: res.insertId, ...newUser });
       result(null, { id: res.insertId, ...newUser });
     });
-  };
-
-  User.findById = (userId, result) => {
-  sql.query(`SELECT * FROM users WHERE id = ${userId}`, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
-
-    if (res.length) {
-      console.log("found user: ", res[0]);
-      result(null, res[0]);
-      return;
-    }
-
-    // not found user with the id
-    result({ kind: "not_found" }, null);
-  });
 };
 
 

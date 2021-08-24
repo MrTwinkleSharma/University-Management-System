@@ -27,21 +27,6 @@ const createUser = (req, res) => {
   });
 };
 
-const getUser = (req, res) => {
-    User.findById(req.params.userId, (err, data) => {
-        if (err) {
-          if (err.kind === "not_found") {
-            res.status(404).send({
-              message: `Not found User with id ${req.params.userId}.`
-            });
-          } else {
-            res.status(500).send({
-              message: "Error retrieving User with id " + req.params.userId
-            });
-          }
-        } else res.send(data);
-      });
-};
 
 const updateUser = (req, res) => {
   // Validate Request
@@ -88,7 +73,6 @@ const deleteUser = (req, res) => {
 
 module.exports = {
     createUser,
-    getUser,
     updateUser,
     deleteUser  
 }

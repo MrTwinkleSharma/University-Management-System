@@ -56,10 +56,10 @@ Student.create = (newStudent, result) => {
 };
 
 Student.updateById = (id, student, result) => {
-  if(student.email){
+  if(student.marks && student.attendance){
     sql.query(
-      "UPDATE students SET email = ? WHERE id = ?",
-      [student.email, id],
+      "UPDATE students SET marks = ?, attendance = ?  WHERE id = ?",
+      [student.marks, student.attendance, id],
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -78,91 +78,6 @@ Student.updateById = (id, student, result) => {
       }
     );
   }
-  if(student.name){
-    sql.query(
-      "UPDATE students SET name = ? WHERE id = ?",
-      [student.name, id],
-      (err, res) => {
-        if (err) {
-          console.log("error: ", err);
-          result(null, err);
-          return;
-        }
-  
-        if (res.affectedRows == 0) {
-          // not found student with the id
-          result({ kind: "not_found" }, null);
-          return;
-        }
-  
-        console.log("updated student: ", { id: id, ...student });
-        result(null, { id: id, ...student });
-      }
-    );
-  }
+};
 
-  if(student.marks){
-    sql.query(
-      "UPDATE students SET marks = ? WHERE id = ?",
-      [student.marks, id],
-      (err, res) => {
-        if (err) {
-          console.log("error: ", err);
-          result(null, err);
-          return;
-        }
-  
-        if (res.affectedRows == 0) {
-          // not found student with the id
-          result({ kind: "not_found" }, null);
-          return;
-        }
-  
-        console.log("updated student: ", { id: id, ...student });
-        result(null, { id: id, ...student });
-      }
-    );
-  }
-  if(student.attendance){
-    sql.query(
-      "UPDATE students SET attendance = ? WHERE id = ?",
-      [student.attendance, id],
-      (err, res) => {
-        if (err) {
-          console.log("error: ", err);
-          result(null, err);
-          return;
-        }
-  
-        if (res.affectedRows == 0) {
-          // not found student with the id
-          result({ kind: "not_found" }, null);
-          return;
-        }
-  
-        console.log("updated student: ", { id: id, ...student });
-        result(null, { id: id, ...student });
-      }
-    );
-  }
-
-  };
-  Student.remove = (id, result) => {
-    sql.query("DELETE FROM students WHERE id = ?", id, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-      }
-  
-      if (res.affectedRows == 0) {
-        // not found student with the id
-        result({ kind: "not_found" }, null);
-        return;
-      }
-  
-      console.log("deleted student with id: ", id);
-      result(null, res);
-    });
-  };
 module.exports = Student;
